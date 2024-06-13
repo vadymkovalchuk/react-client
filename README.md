@@ -1,3 +1,24 @@
+To run: npm start
+Also start chat-server (node index.js) and app-server (dotnet run) in 3 different consoles.
+Everything should work out-of-the-box on localhost (port numbers are configured consistently).
+
+First page requires to 'log in' - select one of the hard-coded employee users from the drop-down.
+After that name and id of that user will show up in chats and customer orders.
+To test multi-user chat and functionality, run in multiple browsers, may choose different users. Chat messages are broadcasted to everyone and added on top.
+
+Chat messages are going through WebSockets Node-based chat-app.
+Data is managed via dotnet-based webapi.
+
+Known issues:
+- Terrible look & feel - apologies, ran out of time
+- Didn't have time to figure out how to reliably force pages to refresh after data has been manipulated
+- Back button and F5 in the browser wrecks app, have to start over
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

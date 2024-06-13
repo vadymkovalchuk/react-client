@@ -28,6 +28,17 @@
   color: #61dafb;
 }
 
+.HomeCustomersView
+{
+  width:70%;
+  float:left;
+}
+.HomeChat
+{
+  width:30%;
+  float:right;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
