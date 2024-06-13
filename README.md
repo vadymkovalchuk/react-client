@@ -16,7 +16,7 @@ To test multi-user chat and functionality, run in multiple browsers, may choose 
 
 Chat messages are going through WebSockets Node-based chat-app.
 
-Data is managed via dotnet-based webapi.
+Data is managed via dotnet-based webapi. Since repository is owned by a webapi server, all changes are shared between all clients (but see below note about issue with page refreshes)
 
 Known issues:
 - Terrible look & feel - apologies, ran out of time
