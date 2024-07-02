@@ -4,9 +4,9 @@ export const getCustomers = async (setter) => {
     setter(data);
 }
 
-export const addCustomer = (firstName, middleName, lastName, setter) => {
+export const addCustomer = (newCustomer, setter) => {
     fetch('http://localhost:5270/customer', {method: "POST", headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-        ,body: JSON.stringify({"firstName": firstName, "middleName": middleName, "lastName": lastName})});
+        ,body: JSON.stringify(newCustomer)});
     getCustomers(setter);
 }
 
@@ -15,9 +15,9 @@ export const deleteCustomer = (customerId, setter) => {
     getCustomers(setter);
 }
 
-export const updateCustomer = (customerId, firstName, middleName, lastName, setter) => {
+export const updateCustomer = (customer, setter) => {
     fetch('http://localhost:5270/customer', {method: "PUT", headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-        , body: JSON.stringify({"customerID":customerId, "firstName": firstName, "middleName": middleName, "lastName": lastName})});
+        , body: JSON.stringify(customer)});
     getCustomers(setter);
 }
 
@@ -27,9 +27,8 @@ export const getCustomerOrders = async (customerId, setter) => {
     setter(data);
 }
 
-export const addCustomerOrder = (customerId, salesPersonId, productId, quantity, setter) => {
-    console.log(JSON.stringify({"customerID": customerId, "salesPersonID": salesPersonId, "productID": productId, "quantity": quantity}));
+export const addCustomerOrder = (customerOrder, setter) => {
     fetch('http://localhost:5270/order', {method: "POST", headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-        ,body: JSON.stringify({"customerID": customerId, "salesPersonID": salesPersonId, "productID": productId, "quantity": quantity})});
-    getCustomerOrders(customerId, setter);
+        ,body: JSON.stringify(customerOrder)});
+    getCustomerOrders(customerOrder.customerId, setter);
 }

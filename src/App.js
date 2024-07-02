@@ -21,6 +21,33 @@ function App() {
   const [customers, setCustomers] = useState([]);
   const [products, setProducts] = useState([]);
 
+  const [chatHistory, setChatHistory] = useState([]);
+  const [subscriptionEstablished, setSubscriptionEstablished] = useState(false);
+
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  if(!subscriptionEstablished)
+  {
+    setSubscriptionEstablished(true);
+    socket.on('message', (message) => {
+      setChatHistory((prevHistory) => [message, ...prevHistory]);
+      refresh();
+    });
+  }
+
+  const refresh = () => {
+    setRefreshKey(rk => rk + 1);
+  }
+
+  const sendMessage = (message, type) => {
+    if(message)
+    {
+      let currentEmployee = employees.find(e => e.employeeID == employeeId);
+      let fullName = currentEmployee.firstName + " " + currentEmployee.lastName + " (" + currentEmployee.employeeID + ")";
+      socket.emit('message', { time: new Date(), name: fullName, text: message, type: type });
+    }
+  };
+
   useEffect(
     () =>
       {
@@ -34,8 +61,8 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<Login setEmployeeId={setEmployeeId} employees={employees}/>}></Route>
-          <Route path="/home" element={<Home socket={socket} setCustomerId={setCustomerId} setCustomers={setCustomers} customers={customers} employeeId={employeeId} employees={employees}/>}></Route>
-          <Route path="/customer" element={<Customer employeeId={employeeId} customerId={customerId} employees={employees} customers={customers} products={products}/>}></Route>
+          <Route path="/home" element={<Home refreshKey={refreshKey} doRefresh={refresh} setCustomerId={setCustomerId} setCustomers={setCustomers} customers={customers} employeeId={employeeId} employees={employees} chatHistory={chatHistory} sendMessage={sendMessage}/>}></Route>
+          <Route path="/customer" element={<Customer refreshKey={refreshKey} doRefresh={refresh} employeeId={employeeId} customerId={customerId} employees={employees} customers={customers} products={products} chatHistory={chatHistory} sendMessage={sendMessage}/>}></Route>
         </Routes>
       </div>
     </BrowserRouter>
